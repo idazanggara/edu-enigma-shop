@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react'
 import Home from '@/pages/Home/Home'
 import Register from './pages/Authentication/Register'
@@ -8,11 +9,11 @@ class App extends React.Component {
   render() {
     return (
       <>
-        <Home />
+        {/* <Home />
         <Register />
-        <Login />
+        <Login /> */}
         <Product />
-        <Toasts />
+        {/* <Toasts /> */}
       </>
     )
   }
@@ -59,3 +60,12 @@ function Toasts() {
 }
 
 export default App
+
+/**
+ * Component React dibagi 2
+ * 1. Statefull component
+ * - Component yg menyediakan state untuk menyimpan data, memiliki react lifecycle
+ * 2. Stateless component
+ * - Component yg tidak mempunyai state dan tidak ada react lifecycle
+ * - Hooks: dengan hooks bisa membuat statless component menjadi seperti stateful component
+ */
