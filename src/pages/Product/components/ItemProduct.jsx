@@ -49,11 +49,12 @@ class ItemProduct extends Component {
     super(props)
     console.log("Called from constructor")
   }
-
+  // ini sering digunakan pada saat fetch data menggunakan API
   componentDidMount() {
     console.log("Called from componentDidMount")
   }
 
+  // ini ketika ada perubahan state
   componentDidUpdate() {
     console.log("Called from componentDidUpdate")
   }
