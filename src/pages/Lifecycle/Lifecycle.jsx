@@ -8,7 +8,6 @@ class Lifecycle extends Component {
     isLoading: false,
     isShow: false,
   }
-
   // ibarat sendang mengabil data dari API
   // API
   componentDidMount() {
@@ -24,8 +23,6 @@ class Lifecycle extends Component {
           isLoading: false
         })
       })
-
-
   }
   handleChangeValue = (todo) => {
     console.log(todo)
@@ -34,7 +31,6 @@ class Lifecycle extends Component {
       todo
     })
   }
-
   // simulasi ngambil API yg butuh waktu
   getTodo = () => {
     return new Promise((resolve) => {
