@@ -5,10 +5,14 @@ import Register from './pages/Authentication/Register'
 import Login from './pages/Authentication/Login'
 import Product from './pages/Product/Product'
 import Lifecycle from './pages/Lifecycle/Lifecycle'
+import Sidebar from './shared/components/Sidebar/Sidebar'
+import Header from './shared/components/Header/Header'
+import Dashboard from './pages/Dashboard/Dashboard'
+import Todo from './pages/Todo/Todo'
 
 class App extends React.Component {
   state = {
-    page: <Lifecycle />
+    page: <Todo />
   }
   handlePages = (page) => {
     // console.log("🚀 ~ App ~ event:", event)
@@ -16,28 +20,40 @@ class App extends React.Component {
       page: page
     })
   }
+  navigateTo = (page) => {
+    this.setState({
+      page: page
+    })
+  }
   render() {
     return (
       <>
-        {/* <Lifecycle /> */}
-        <button onClick={() => this.handlePages(<Lifecycle />)}>Show Lifecycle</button>
-        {/* <Home /> */}
-        <button onClick={() => this.setState({ page: <Home /> })}>Show Home</button>
-        {/* <Register /> */}
-        <button onClick={() => this.setState({ page: <Register /> })}>Show Register</button>
-        {/* <Login /> */}
-        <button onClick={() => this.setState({ page: <Login /> })}>Show Login</button>
-        {/* <Product /> */}
-        <button onClick={() => this.setState({ page: <Product /> })}>Show Product</button>
-        {/* <Toasts /> */}
-        <button onClick={() => this.setState({ page: <Toasts /> })}>Show Toasts</button>
-        {this.state.page}
-
+        <div className="d-flex">
+          <Sidebar navigateTo={this.navigateTo} />
+          <main className="w-100 flex-grow-1">
+            <Header />
+            {this.state.page}
+          </main>
+        </div>
       </>
     )
   }
 }
 
+
+// {/* <Lifecycle /> */ }
+// {/* <button onClick={() => this.handlePages(<Lifecycle />)}>Show Lifecycle</button> */ }
+// {/* <Home /> */ }
+// {/* <button onClick={() => this.setState({ page: <Home /> })}>Show Home</button> */ }
+// {/* <Register /> */ }
+// {/* <button onClick={() => this.setState({ page: <Register /> })}>Show Register</button> */ }
+// {/* <Login /> */ }
+// {/* <button onClick={() => this.setState({ page: <Login /> })}>Show Login</button> */ }
+// {/* <Product /> */ }
+// {/* <button onClick={() => this.setState({ page: <Product /> })}>Show Product</button> */ }
+// {/* <Toasts /> */ }
+// {/* <button onClick={() => this.setState({ page: <Toasts /> })}>Show Toasts</button> */ }
+// {/* {this.state.page} */ }
 function Toasts() {
   // const toastTrigger = document.getElementById('liveToastBtn')
   // const toastLiveExample = document.getElementById('liveToast')
