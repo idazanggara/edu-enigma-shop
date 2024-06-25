@@ -4,16 +4,35 @@ import Home from '@/pages/Home/Home'
 import Register from './pages/Authentication/Register'
 import Login from './pages/Authentication/Login'
 import Product from './pages/Product/Product'
+import Lifecycle from './pages/Lifecycle/Lifecycle'
 
 class App extends React.Component {
+  state = {
+    page: <Lifecycle />
+  }
+  handlePages = (page) => {
+    // console.log("🚀 ~ App ~ event:", event)
+    this.setState({
+      page: page
+    })
+  }
   render() {
     return (
       <>
-        {/* <Home />
-        <Register />
-        <Login /> */}
-        <Product />
+        {/* <Lifecycle /> */}
+        <button onClick={() => this.handlePages(<Lifecycle />)}>Show Lifecycle</button>
+        {/* <Home /> */}
+        <button onClick={() => this.setState({ page: <Home /> })}>Show Home</button>
+        {/* <Register /> */}
+        <button onClick={() => this.setState({ page: <Register /> })}>Show Register</button>
+        {/* <Login /> */}
+        <button onClick={() => this.setState({ page: <Login /> })}>Show Login</button>
+        {/* <Product /> */}
+        <button onClick={() => this.setState({ page: <Product /> })}>Show Product</button>
         {/* <Toasts /> */}
+        <button onClick={() => this.setState({ page: <Toasts /> })}>Show Toasts</button>
+        {this.state.page}
+
       </>
     )
   }

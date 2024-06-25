@@ -33,3 +33,19 @@ body {
 
 // Biskuat
 // https://www.static-src.com/wcsstore/Indraprastha/images/catalog/full/MTA-14180939/biskuat_biskuat_coklat_140gr_full02_kyswxeip.jpeg
+
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
