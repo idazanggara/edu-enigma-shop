@@ -3,6 +3,7 @@ import { IconTrash } from '@tabler/icons-react'
 import { IconEdit } from '@tabler/icons-react'
 import { IconDeviceFloppy } from '@tabler/icons-react'
 import { Component } from 'react'
+import Loading from '../../shared/components/Loading/Loading'
 
 const obj = {
   task: 'Makan',
@@ -26,7 +27,8 @@ class Todo extends Component {
     errors: {
       task: "",
       description: "",
-    }
+    },
+    isLoading: false,
   }
 
   handleChange = (event) => {
@@ -102,6 +104,7 @@ class Todo extends Component {
     this.clearForm()
   }
   componentDidMount() {
+    this.setState({ isLoading: true })
     setTimeout(() => {
       this.setState({
         todos: [
@@ -113,6 +116,7 @@ class Todo extends Component {
           }
         ]
       })
+      this.setState({ isLoading: false })
     }, 3000)
   }
 
@@ -135,6 +139,12 @@ class Todo extends Component {
   }
   render() {
     console.log("🚀 ~ Todo ~ todos:", this.state.todos)
+    if (this.state.isLoading) {
+      return (
+        <Loading />
+      )
+    }
+
     return (
       <div className='container-fluid pt-4 px-4' >
         <h1>Todo</h1>
