@@ -14,10 +14,10 @@ class App extends React.Component {
   state = {
     // page: <Todo test="Hello World!" />,
     page: <Dashboard />,
-    isAuthenticated: true,
+    isAuthenticated: false,
   }
 
-  handleAuthenticated = (status) => {
+  handleAuthentication = (status) => {
     this.setState({
       isAuthenticated: status,
     })
@@ -44,15 +44,15 @@ class App extends React.Component {
             <div className="d-flex">
               <Sidebar
                 navigateTo={this.navigateTo}
-                handleAuthenticated={this.handleAuthenticated}
+                handleAuthentication={this.handleAuthentication}
               />
               <main className="w-100 flex-grow-1">
-                <Header handleAuthenticated={this.handleAuthenticated} />
+                <Header handleAuthentication={this.handleAuthentication} />
                 {page}
               </main>
             </div>
             :
-            <Login handleAuthenticated={this.handleAuthenticated} />
+            <Login handleAuthentication={this.handleAuthentication} />
         }
       </>
     )

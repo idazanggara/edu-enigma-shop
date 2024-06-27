@@ -22,7 +22,12 @@ import PetsPage from "../../../pages/Pets/PetsPage"
 import { IconCat } from "@tabler/icons-react"
 
 
+
 export default class Sidebar extends Component {
+  handleLogout = () => {
+    if (!confirm("Apakah yakin ingin logout?")) return
+    this.props.handleAuthentication(false)
+  };
   render() {
     const { navigateTo } = this.props
     return (
@@ -129,6 +134,7 @@ export default class Sidebar extends Component {
             </li>
             <hr />
             <li
+              onClick={this.handleLogout}
               className="cursor-pointer text-white">
               <i className="me-3">
                 <IconDoorExit />
@@ -144,4 +150,5 @@ export default class Sidebar extends Component {
 
 Sidebar.propTypes = {
   navigateTo: PropTypes.func,
+  handleAuthentication: PropTypes.func,
 }
