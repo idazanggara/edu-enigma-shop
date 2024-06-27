@@ -3,6 +3,17 @@ import { IconArrowLeft } from "@tabler/icons-react"
 import { Component } from "react"
 
 class Login extends Component {
+  state = {
+    form: {
+      username: "",
+      password: ""
+    },
+    errors: {
+      username: "",
+      password: "",
+    },
+    isValid: false,
+  }
   render() {
     return (
       <>
@@ -35,20 +46,20 @@ class Login extends Component {
               </div>
               <h2 className="text-center">Log In</h2>
               <div className="mb-3">
-                <label htmlFor="emailLogin">Email</label>
+                <label htmlFor="username">Username</label>
                 <input
-                  type="email"
-                  name="email"
-                  id="emailLogin"
+                  type="text"
+                  name="username"
+                  id="username"
                   className="form-control rounded-0 border-0 border-bottom"
                 />
               </div>
               <div className="mb-3">
-                <label htmlFor="passwordLogin">Password</label>
+                <label htmlFor="password">Password</label>
                 <input
                   type="password"
                   name="password"
-                  id="passwordLogin"
+                  id="password"
                   className="form-control rounded-0 border-0 border-bottom"
                 />
               </div>

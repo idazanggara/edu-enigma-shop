@@ -3,6 +3,8 @@ import Loading from '../../shared/components/Loading/Loading'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
 import LoadingAnimation from '../../shared/components/Animations/LoadingAnimation'
+import withUiState from '../../shared/hoc/withUiState'
+import PropTypes from 'prop-types'
 
 class Todo extends Component {
   state = {
@@ -19,7 +21,7 @@ class Todo extends Component {
     },
     isLoading: false,
     message: "",
-    isLoadingAnimation: false,
+    // isLoadingAnimation: false, // setelah HOC kita tidak perlu buat isLoadingAnimation lagi
   }
 
   handleChange = (event) => {
@@ -58,7 +60,8 @@ class Todo extends Component {
     // error
 
     const todos = this.state.todos
-    this.setState({ isLoadingAnimation: true })
+    // this.setState({ isLoadingAnimation: true })
+    this.props.showLoading()
     setTimeout(() => {
       if (this.state.form.id) {
         // TODO: Update
@@ -84,7 +87,8 @@ class Todo extends Component {
         })
       }
       this.clearForm()
-      this.setState({ isLoadingAnimation: false })
+      // this.setState({ isLoadingAnimation: false })
+      this.props.hideLoading()
     }, 2000)
   }
   componentDidMount() {
@@ -106,10 +110,15 @@ class Todo extends Component {
 
   handleDelete = (id) => {
     if (!confirm(`Apakah anda yakin ingin menghapus tugas ini ${id}? `)) return
-    const todos = this.state.todos.filter((todo) => todo.id !== id)
-    this.setState({
-      todos: todos
-    })
+
+    this.props.showLoading()
+    setTimeout(() => {
+      const todos = this.state.todos.filter((todo) => todo.id !== id)
+      this.setState({
+        todos: todos
+      })
+      this.props.hideLoading()
+    }, 2000)
   }
   clearForm = () => {
     this.setState({
@@ -149,6 +158,7 @@ class Todo extends Component {
           </div>
         </div>
 
+        {/* {this.props.test + "uuuuu"} */}
         <h1>Todo</h1>
         {/* Form */}
         <TodoForm
@@ -163,7 +173,7 @@ class Todo extends Component {
 
         {/* List */}
         {
-          this.state.isLoadingAnimation
+          this.props.isLoading
           &&
           <LoadingAnimation />
           ||
@@ -174,7 +184,7 @@ class Todo extends Component {
           />
         }
         {
-          this.state.isLoadingAnimation
+          this.props.isLoading
             ?
             <LoadingAnimation />
             :
@@ -188,5 +198,14 @@ class Todo extends Component {
     )
   }
 }
+Todo.propTypes = {
+  isLoading: PropTypes.bool,
+  showLoading: PropTypes.func,
+  hideLoading: PropTypes.func,
+}
 
-export default Todo
+const TodoComponent = withUiState(Todo)
+// GrandParent -> Parent -> Child
+// const TodoComponent = withAlert(withUiState(Todo))
+
+export default TodoComponent

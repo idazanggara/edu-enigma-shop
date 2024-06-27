@@ -12,8 +12,17 @@ import Todo from './pages/Todo/Todo'
 
 class App extends React.Component {
   state = {
-    page: <Todo />
+    // page: <Todo test="Hello World!" />,
+    page: <Dashboard />,
+    isAuthenticated: true,
   }
+
+  handleAuthenticated = (status) => {
+    this.setState({
+      isAuthenticated: status,
+    })
+  }
+
   handlePages = (page) => {
     // console.log("🚀 ~ App ~ event:", event)
     this.setState({
@@ -26,15 +35,25 @@ class App extends React.Component {
     })
   }
   render() {
+    const { isAuthenticated, page } = this.state
     return (
       <>
-        <div className="d-flex">
-          <Sidebar navigateTo={this.navigateTo} />
-          <main className="w-100 flex-grow-1">
-            <Header />
-            {this.state.page}
-          </main>
-        </div>
+        {
+          isAuthenticated
+            ?
+            <div className="d-flex">
+              <Sidebar
+                navigateTo={this.navigateTo}
+                handleAuthenticated={this.handleAuthenticated}
+              />
+              <main className="w-100 flex-grow-1">
+                <Header handleAuthenticated={this.handleAuthenticated} />
+                {page}
+              </main>
+            </div>
+            :
+            <Login handleAuthenticated={this.handleAuthenticated} />
+        }
       </>
     )
   }

@@ -1,5 +1,6 @@
 import { Component } from "react"
 import { IconSettings2 } from "@tabler/icons-react"
+import { IconDoorExit } from "@tabler/icons-react"
 
 export default class Header extends Component {
   render() {
@@ -33,6 +34,17 @@ export default class Header extends Component {
               </i>
               Sunting Profil
             </a>
+          </li>
+          <li>
+            <button
+              className="dropdown-item"
+              href="#"
+            >
+              <i className="me-2">
+                <IconDoorExit size={16} />
+              </i>
+              Logout
+            </button>
           </li>
         </ul>
       </div>
