@@ -2,9 +2,18 @@ import { Component } from 'react'
 import Loading from '../../shared/components/Loading/Loading'
 import TodoForm from './components/TodoForm'
 import TodoList from './components/TodoList'
-import LoadingAnimation from '../../shared/components/Animations/LoadingAnimation'
 
-class Todo extends Component {
+const obj = {
+  task: 'Makan',
+  description: 'Makan Orang-orangan sawah',
+  status: false
+}
+let task = "task"
+console.log(obj.task)
+console.log(obj[task])
+console.log(obj["task"])
+
+class TodoBeforeRefactor extends Component {
   state = {
     form: {
       id: '',
@@ -19,11 +28,13 @@ class Todo extends Component {
     },
     isLoading: false,
     message: "",
-    isLoadingAnimation: false,
   }
 
   handleChange = (event) => {
+    // console.log("🚀 ~ Todo ~ event:", event)
     const { name, value } = event.target
+    // console.log("🚀 ~ Todo ~ value:", value)
+    // console.log("🚀 ~ Todo ~ name:", name)
     this.setState({
       form: {
         ...this.state.form,
@@ -32,6 +43,8 @@ class Todo extends Component {
     })
   }
   handleChangeStatus = (event) => {
+    // console.log("🚀 ~ Todo ~ checked:", event.target.checked)
+    // console.log("🚀 ~ Todo ~ name:", event.target.name)
     this.setState({
       form: {
         ...this.state.form,
@@ -42,50 +55,52 @@ class Todo extends Component {
 
   handleSubmit = (event) => {
     event.preventDefault()
+    // console.log("🚀 ~ Todo ~ form:", this.state.form)
 
     // error handling
     let errors = {}
+
     if (this.state.form.task === "") {
       errors.task = "Tugas wajib di isi"
     }
     if (this.state.form.description === "") {
       errors.description = "Deskripsi wajib di isi"
     }
+
     this.setState({
       errors: errors,
     })
-    if (Object.keys(errors).length > 0) return
     // error
+    if (Object.keys(errors).length > 0) return
 
     const todos = this.state.todos
-    this.setState({ isLoadingAnimation: true })
-    setTimeout(() => {
-      if (this.state.form.id) {
-        // TODO: Update
-        const index = todos.findIndex((todo) => todo.id === this.state.form.id)
-        const todo = {
-          ...this.state.form,
-        }
-        todos.splice(index, 1, todo)
-        this.setState({
-          todos: todos,
-          message: "Berhasil di update Todo!",
-        })
-      } else {
-        // TODO: Create
-        const todo = {
-          ...this.state.form,
-          id: new Date().getMilliseconds().toString()
-        }
-        todos.push(todo)
-        this.setState({
-          todos: todos,
-          message: "Berhasil di tambahkan Todo!",
-        })
+    // ["donat1","donat2"]
+    // todos.push("donat3")
+    // todos.push("donat4")
+    // ["donat1","donat2", "donat3", "donat4"]
+    if (this.state.form.id) {
+      // TODO: Update
+      const index = todos.findIndex((todo) => todo.id === this.state.form.id)
+      const todo = {
+        ...this.state.form,
       }
-      this.clearForm()
-      this.setState({ isLoadingAnimation: false })
-    }, 2000)
+      todos.splice(index, 1, todo)
+      this.setState({
+        todos: todos
+      })
+    } else {
+      // TODO: Create
+      const todo = {
+        ...this.state.form,
+        id: new Date().getMilliseconds().toString()
+      }
+      todos.push(todo)
+      this.setState({
+        todos: todos
+      })
+    }
+
+    this.clearForm()
   }
   componentDidMount() {
     this.setState({ isLoading: true })
@@ -118,13 +133,8 @@ class Todo extends Component {
         task: '',
         description: '',
         status: false
-      },
-    },
-      () => {
-        setTimeout(() => {
-          this.setState({ message: "" })
-        }, 2000)
-      })
+      }
+    })
   }
   handleSelectedTodoForEdit = (todo) => {
     this.setState({ form: todo })
@@ -139,7 +149,6 @@ class Todo extends Component {
 
     return (
       <div className='container-fluid pt-4 px-4 position-relative' >
-        {/* Toasts */}
         <div className={`${this.state.message && "show"} toast position-absolute top-0 end-0 me-4 mt-4 align-items-center text-bg-primary border-0`} role="alert" aria-live="assertive" aria-atomic="true">
           <div className="d-flex">
             <div className="toast-body">
@@ -162,31 +171,14 @@ class Todo extends Component {
 
 
         {/* List */}
-        {
-          this.state.isLoadingAnimation
-          &&
-          <LoadingAnimation />
-          ||
-          <TodoList
-            handleSelectedTodoForEdit={this.handleSelectedTodoForEdit}
-            handleDelete={this.handleDelete}
-            todos={this.state.todos}
-          />
-        }
-        {
-          this.state.isLoadingAnimation
-            ?
-            <LoadingAnimation />
-            :
-            <TodoList
-              handleSelectedTodoForEdit={this.handleSelectedTodoForEdit}
-              handleDelete={this.handleDelete}
-              todos={this.state.todos}
-            />
-        }
+        <TodoList
+          handleSelectedTodoForEdit={this.handleSelectedTodoForEdit}
+          handleDelete={this.handleDelete}
+          todos={this.state.todos}
+        />
       </div>
     )
   }
 }
 
-export default Todo
+export default TodoBeforeRefactor
