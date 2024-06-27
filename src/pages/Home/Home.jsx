@@ -22,7 +22,7 @@ class Home extends Component {
         <ContactUs />
         {/* Footer */}
         <Footer />
-        <h1>Home</h1>
+        {/* <h1>Home</h1> */}
       </div>
     )
   }

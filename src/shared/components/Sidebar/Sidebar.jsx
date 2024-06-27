@@ -18,6 +18,8 @@ import Product from "../../../pages/Product/Product"
 import Login from "../../../pages/Authentication/Login"
 import Register from "../../../pages/Authentication/Register"
 import Home from "../../../pages/Home/Home"
+import PetsPage from "../../../pages/Pets/PetsPage"
+import { IconCat } from "@tabler/icons-react"
 
 
 export default class Sidebar extends Component {
@@ -98,6 +100,14 @@ export default class Sidebar extends Component {
                     <IconAccessible />
                   </i>
                   <span>Admin</span>
+                </li>
+                <li
+                  onClick={() => navigateTo(<PetsPage />)}
+                  className="cursor-pointer">
+                  <i className="me-3">
+                    <IconCat />
+                  </i>
+                  <span>Pets</span>
                 </li>
               </ul>
             </div>
